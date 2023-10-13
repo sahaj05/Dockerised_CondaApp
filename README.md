@@ -56,12 +56,12 @@ docker ps
   ## Basic file structure for the project
 
   + ├── conda-flask-api
-    |   ├── start.ps1      		<- Windows powershell to build and run our docker
-    │   ├── Dockerfile     		<- Instructions to build our container
-    │   ├── environment.yml		<- Conda environment.yml
-    │   ├── serve.sh			<- bash script to run an application server
-    │   └── raw            		
-    │   	└── flask-api.py	<- the flask app
+    |   + ├── start.ps1      		<- Windows powershell to build and run our docker
+    │   + ├── Dockerfile     		<- Instructions to build our container
+    │   + ├── environment.yml		<- Conda environment.yml
+    │   + ├── serve.sh			<- bash script to run an application server
+    │   + └── raw            		
+    │   + └── flask-api.py	<- the flask app
 
  ## Purpose Of the project
 
