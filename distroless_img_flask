@@ -1,0 +1,19 @@
+# Use the distroless Python3 base image
+FROM gcr.io/distroless/python3
+
+LABEL MAINTAINER="Your Name"
+LABEL version="0.1"
+LABEL description="A Docker container to serve a simple Python Flask API"
+
+WORKDIR /app
+
+COPY environment.yml ./
+RUN conda env create -f environment.yml
+
+COPY app ./app
+COPY serve.sh ./
+RUN chmod +x serve.sh
+
+EXPOSE 5000
+
+ENTRYPOINT ["./serve.sh"]
