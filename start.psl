@@ -1,0 +1,5 @@
+# Build the Docker image (replace 'your-image-name' with your desired image name)
+docker build -t your-image-name .
+
+# Run the Docker container (replace 'your-container-name' with your desired container name)
+docker run --name your-container-name -d -p 5000:5000 your-image-name
