@@ -1,0 +1,37 @@
+# Stage 1: Build the application using Ubuntu as the base image
+FROM ubuntu:20.04 AS build
+
+LABEL MAINTAINER="Your Name"
+LABEL version="0.1"
+LABEL description="Build stage for a simple Python Flask API"
+
+# Set up the working directory
+WORKDIR /app
+
+# Install necessary dependencies for building your app
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+# Copy your application files to the container
+COPY environment.yml ./
+RUN apt-get install -y python3-venv
+RUN python3 -m venv venv
+RUN /bin/bash -c "source venv/bin/activate && pip install -r environment.yml"
+
+COPY app ./app
+COPY serve.sh ./
+
+# Stage 2: Copy only necessary files to a smaller base image
+FROM gcr.io/distroless/python3
+
+# Set the working directory
+WORKDIR /app
+
+# Copy files from the build stage to this stage
+COPY --from=build /app/app ./app
+COPY --from=build /app/serve.sh ./
+
+# Expose the necessary port
+EXPOSE 5000
+
+# Define the entry point
+CMD ["./serve.sh"]
